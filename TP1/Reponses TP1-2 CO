@@ -1,0 +1,53 @@
+TP1-2 COO
+
+Exercice 1:
+Q4 : il s'agit d'un commentaire multi-ligne qui ne va pas s'executé. Il sert a eclaircir le code.
+
+Q5 : Le "public" permet a une classe,methode ou attribut d'etre accessible.
+	Si on supprime le "public" d'une classe, cela ne change rien car c'est le moide par default.
+	Si on supprime le public du main, il y a erreur à l'execution.
+
+Q6 : On ne peut pas explicité l'execution de "Hello.class". Donc la machine virtuel cherche une classe avec le nom "Hello.class" qui n'existe pas.
+
+Q7 : Erreur lors de la compilation. Le nom de la classe "Hello" ne correspond pas au nom du ficher que l'on essaie de compilé "Hello2.java".
+
+Q8 : Pas d'erreur à la compilation mais il ne trouve pas la fonction principal "main" lors de l'execution.
+	La fonction "main2" est considéré comme une fonction normale et non pas comme le point d'entré du programme.
+	Cette fonction "speciale" est le point d'entré (de depart) du programme, il est donc obligatoire et identique.
+
+Exercice 2:
+Q1 : Fait. Pas d'erreur a la compilation.
+
+Q2 : Erreur à la compilation. Levée d'une exception "NumberFormat". On ne peut pas convertir un char en int avec Integer.parseInt(s).
+
+Q3 : le programme compare le premier argument avec le dernier. Donc on a l'affichage "2 inferieur a 7".
+	Car nous avons comparé uniquement deux arguments. Le permier avec arg[0] et le dernier (3 eme) avec arg[arg.length-1].
+
+Exercice 3:
+Fait. une erreur de parenthese oublié a la compilation.
+
+Exercice 4:
+Q2 : Il s'agit de l'import de la bibliotheque permettant de gerer les entrées/sorties.
+
+Q3 : il s'agit d'un commentaire sur une seule ligne. Et ne sera donc pas executé.
+
+Q4 : "throws IOException" permet de levée une exception qui sera traité par la fonction appelante. Cela permet de ne pas s'occupé d'une eventuelle exception dans la fonction en cours et de laissé gerer la fonction appelante.
+
+Q5 : le code ligne 5 permet d'instancier la variable "inr" de type BufferedReader avec son constructeur.
+
+Exercice 5 :
+
+Q1 : Fait.
+
+Q2 : On recupere l'argument en parametre, on modifie la taille du tableau et les "i" dans les for.
+
+Exercice 6 :
+
+Fait.
+
+Exercice 7 :
+
+Nous avons executer le programme.
+
+Exercice 8 :
+
