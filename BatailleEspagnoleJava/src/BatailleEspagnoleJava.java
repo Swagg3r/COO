@@ -23,6 +23,8 @@ public class BatailleEspagnoleJava {
     /************************[ TODO ]************************   
     * - revoir l'affichage en général
     * - javadoc
+    * - gérer partie à 0 joueurs
+    * - partie à 1 joueur : weird behavior atout
     * - mettre à jour UML
     * - mettre un Stack à la place d'une Arraylist pour les cartes ?
     * - revoir méthode de comptage des points ?

@@ -217,16 +217,16 @@ public class Jeu {
                 if (atoutChoisi == true) break;
                 Joueur joueurCourant = joueurs.get((dealer + i) % nb_joueurs);
                 String choix = joueurCourant.choisirAtout();
-                if (choix == "C") {
+                if (choix.equals("C")) {
                     this.atout = famille.Coupe;
                     atoutChoisi = true;
-                } else if (choix == "B") {
+                } else if (choix.equals("B")) {
                     this.atout = famille.Bâton;
                     atoutChoisi = true;
-                } else if (choix == "O") {
+                } else if (choix.equals("O")) {
                     this.atout = famille.Or;
                     atoutChoisi = true;
-                } else if (choix == "E") {
+                } else if (choix.equals("E")) {
                     this.atout = famille.Epée;
                     atoutChoisi = true;
                 }
