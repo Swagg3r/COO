@@ -59,7 +59,7 @@ public class Partie {
     public void addJoueur(Joueur j) {
         if(this.participants.size() == 4) {
             System.out.println("Impossible d'ajouter " + j.getNomJoueur());
-            System.out.println("(le nombre limite de joueur a été atteint)");
+            System.out.println("(la limite du nombre de joueur a été atteinte)");
             return;
         }
         this.participants.add(j);
