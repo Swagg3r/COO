@@ -75,7 +75,6 @@ public class BatailleEspagnoleJava {
     
     //author = prof de bd
     public static int lireEntier() {
-        
         BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
         int res = 0;
         boolean ok = false;
