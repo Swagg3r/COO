@@ -26,25 +26,10 @@ public class BatailleEspagnoleJava {
     * - mettre un Stack à la place d'une Arraylist pour les cartes ?
     * - revoir méthode de comptage des points ?
     * - expliquer premier + rangvainqueur % joueurs.size()
-<<<<<<< HEAD
     * - le joueur qui a le plus de points à gagner
     * - Une fois les cartes jouer par un joueurs : afficher les cartes qui sont sur la table
     * - Quand on rentre comme parametre de partie "0" et "0", que se passe t il ?? 
     *      Rajouter un affichage des regles par default et/ou apres definitions des conditions dans tous les cas.
-=======
-    *                       Apres avoir effectué quelques test ...
-    * - Une fois les cartes jouer par un joueurs : afficher les cartes qui sont sur la table.
-    * - Gerer l'exception generée en tapant une une lettre quand on demande un chiffre pour jouer une carte. try catch
-    * - Verifier le nom de joueurs ?? (pas 2x fois le meme)
-    * - Preciser quoi repondre pour le choix de l'atout.
-    * - BUG : lorsque on termine le premier jeu en mode prématuré (car personne ne choisit d'atout) le jeu suivant commence et les joueurs on 6 cartes en main .... WTF ?
-    * - Gerer l'exception de 0 joueur. (Il en faut entre 2 et 4).
-    * - Ne pas autoriser le lancement de la partie avec 1 joueur.
-    * - Une fois les 4 joueurs rentrés : arreter la boule (il ne peut pas yen avoir d'autre
-    * - Quand on rentre comme parametre de partie "0" et "0", que se passe t il ?? Rajouter un affichage des regles par default et/ou apres definitions des conditions dans tous les cas.
-    * - IA
-    * - IHM
->>>>>>> 18f933b054843db989e3b6525e9b4ec262c30f92
     *********************************************************/ 
     
     private static int nb_jeux = 3;
