@@ -59,6 +59,7 @@ public class Partie {
         return this.jeux.get(this.jeux.size()-1);
     }
     // participants
+<<<<<<< HEAD
     public void createJoueurs() {
         
         String nomJoueur;
@@ -84,6 +85,13 @@ public class Partie {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+=======
+    public void addJoueur(Joueur j) {
+        if(this.participants.size() == 4) {
+            System.out.println("Impossible d'ajouter " + j.getNomJoueur());
+            System.out.println("(la limite du nombre de joueur a été atteinte)");
+            return;
+>>>>>>> 18f933b054843db989e3b6525e9b4ec262c30f92
         }
     }
     public void removeJoueur(Joueur j) {
