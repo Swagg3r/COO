@@ -63,6 +63,10 @@ public class Jeu {
         définirAtout();
         if (this.atout == null) {
             System.out.println("fin prématurée du jeu");
+            //reset des cartes en main
+            for(Joueur j : joueurs) {
+                j.setCartes(new ArrayList<Carte>());
+            }
             return;
         }
         int i = 1;

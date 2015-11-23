@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Joueur {
 
@@ -8,7 +9,7 @@ public class Joueur {
     private int nbPoints;
     private boolean aLaMain;
     private boolean estDealer;
-    private final ArrayList<Carte> cartesEnMain;
+    private ArrayList<Carte> cartesEnMain;
 
     /* Constructeurs */
     
@@ -73,12 +74,15 @@ public class Joueur {
     public ArrayList<Carte> getCartes() {
         return this.cartesEnMain;
     }
+    public void setCartes(ArrayList<Carte> cartes) {
+        this.cartesEnMain = cartes;
+    }
     
     /* Fonctions */
     
     public void print() {
         System.out.print(nomJoueur);
-        if (cartesEnMain.size() != 0) {
+        if (!cartesEnMain.isEmpty()) {
             System.out.print(" : " + cartesEnMain.size()+" cartes\n");
             for(Carte c : cartesEnMain) {
                 System.out.println(". " + c.toString());
@@ -94,10 +98,16 @@ public class Joueur {
         afficherCartes();
         System.out.println("Quelle carte voulez-vous jouer ?");
         Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-        while (Integer.parseInt(str) > cartesEnMain.size()) {
-            System.out.println("(Vous devez saisir un index de carte valide !)");
-            str = sc.nextLine();
+        String str = "";
+        boolean valid = false;
+        while (!valid) {
+            try {
+                str = sc.nextLine();
+                if(Integer.parseInt(str) > cartesEnMain.size()) throw new Exception();
+                valid = true;
+            } catch (Exception e) {
+                System.out.println("(Vous devez saisir un index de carte valide !)");
+            }
         }
         //la carte jouée est retirée de la main du joueur
         int index = Integer.parseInt(str) - 1;
@@ -118,26 +128,27 @@ public class Joueur {
         afficherCartes();
         
         Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-        while (!str.toUpperCase().equals("O") && !str.toUpperCase().equals("N")) {
+        String str;
+        do {
             System.out.println("Vous devez saisir oui(o) ou non(n) : ");
             str = sc.nextLine();
-        }
+        } while (!str.toUpperCase().equals("O") && !str.toUpperCase().equals("N"));
+        
         return (str.toUpperCase().equals("O") ? true : false);
     }
     
     public String choisirAtout() {
         System.out.println(nomJoueur+", quel atout choisissez-vous ?");
         Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-        while (!str.toUpperCase().equals("C")
+        String str;
+        do {
+            System.out.println("Vous devez choisir entre \n- Coupe(C)\n- Bâton(B)\n- Or(O)\n- Epée(E)\n- Passer votre tour(P): ");
+            str = sc.nextLine();
+        } while (!str.toUpperCase().equals("C")
             && !str.toUpperCase().equals("B")
             && !str.toUpperCase().equals("O")
             && !str.toUpperCase().equals("E")
-            && !str.toUpperCase().equals("P")) {
-            System.out.println("Vous devez choisir entre \n- Coupe(C)\n- Bâton(B)\n- Or(O)\n- Epée(E)\n- Passer votre tour(P): ");
-            str = sc.nextLine();
-        }
+            && !str.toUpperCase().equals("P"));
         return str.toUpperCase();
     }
     

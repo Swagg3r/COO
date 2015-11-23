@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Partie {
 
@@ -12,19 +13,21 @@ public class Partie {
 
     /* Constructeurs */
     
-    public Partie() {
+
+    
+    public Partie(int value, String mode) {
         this.vainqueur = null;
         this.jeux = new ArrayList<>();
         this.participants = new ArrayList<>();
         this.paquet = creerPaquet();
-        this.nbMaxPoints = 300;
-        this.nbJeuxMax = 10;
-    }
-    
-    public Partie(int maxPoints, int nbJeuxMax) {
-        this();
-        this.nbMaxPoints = maxPoints;
-        this.nbJeuxMax = nbJeuxMax;
+        
+        if(mode.toUpperCase().equals("P")) {
+            this.nbMaxPoints = value;
+        } else if(mode.toUpperCase().equals("J")) {
+            this.nbJeuxMax = value;
+        } else if(mode.toUpperCase().equals("D")) {
+            this.nbMaxPoints = 200;
+        }
     }
     
     /* get / set / add / remove */
@@ -56,13 +59,32 @@ public class Partie {
         return this.jeux.get(this.jeux.size()-1);
     }
     // participants
-    public void addJoueur(Joueur j) {
-        if(this.participants.size() == 4) {
-            System.out.println("Impossible d'ajouter " + j.getNomJoueur());
-            System.out.println("(le nombre limite de joueur a été atteint)");
-            return;
+    public void createJoueurs() {
+        
+        String nomJoueur;
+        Scanner sc = new Scanner(System.in);
+        while(participants.size() < 4) {
+            System.out.println("-> Saisir un nom de joueur à ajouter à la partie :");
+            System.out.println("(Saisir \"stop\" pour arrêter la saisie)");
+            nomJoueur = sc.nextLine();
+            try {
+                //exception : pas assez de joueurs
+                if(nomJoueur.toUpperCase().equals("STOP")) {
+                    if(participants.size() <= 1) {
+                        throw new Exception("Impossible d'arrêter la saisie : il faut au moins deux joueurs");
+                    } else break;
+                }
+                //exception : joueur déjà existant
+                for (Joueur j : participants) {
+                    if(j.getNomJoueur().equals(nomJoueur)) {
+                        throw new Exception("Impossible d'ajouter " + nomJoueur + " : ce nom est déjà pris pas un autre joueur");
+                    }
+                }
+                this.participants.add(new Joueur(nomJoueur));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
-        this.participants.add(j);
     }
     public void removeJoueur(Joueur j) {
         this.participants.remove(j);
