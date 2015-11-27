@@ -3,34 +3,28 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-/************************[ TODO ]************************   
-* - javadoc.
-* - mettre à jour UML
-* - Quand on rentre comme parametre de partie "0" et "0", que se passe t il ?? 
-*      Rajouter un affichage des regles par default et/ou apres definitions des conditions dans tous les cas.
-*********************************************************/ 
-
 /**
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/**
- *
+ * <b>BatailleEspagnoleJava est la classe qui représente une partie de bataille espagnole. </b>
+ * <p>Une bataille espagnole se déroule de la manière suivante :</p>
+ * <ul>
+ * <li>L'utiliseur de choisit la condition d'arrêt (de victoire) de la partie.</li>
+ * <li>Il définit la valeur de cette condition (nombre de points à atteindre ou nombre de jeux). 
+ * Cette étape est ignorée si l'utilisateur a choisi le mode par défaut.</li>
+ * <li>Il saisit au clavier les noms des joueurs.</li>
+ * </ul>
+ * <p>Les paramètres saisis sont envoyés à la classe Partie. </p>
+ * 
+ * @see Partie
+ * 
  * @author Aurélien MONNET-PAQUET, Antoine THEBAUD
  */
+
 public class BatailleEspagnoleJava {
     
     /**
-    * blablabla
-    * 
-    * @see Zero#Zero(int, String)
-    * @see Zero#getId()
-    */
-    private static int nb_jeux = 3;
-    
+     * Cette méthode est automatiquement appelée au lancement du programme.
+     * @param args les arguments de la méthode main (inutilisés ici).
+     */
     public static void main(String[] args) {
         
         System.out.println("=============[ BATAILLE ESPAGNOLE ]=============\n");
@@ -63,7 +57,7 @@ public class BatailleEspagnoleJava {
     
     /**
      * lecture au clavier d'un entier non-signé positif
-     * @return l'entier lu
+     * @return l'entier lu.
      */
     public static int readUInt() {
         Scanner sc = new Scanner(System.in);
