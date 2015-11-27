@@ -4,15 +4,16 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
- * <b>BatailleEspagnoleJava est la classe qui représente une partie de bataille espagnole. </b>
- * <p>Une bataille espagnole se déroule de la manière suivante :</p>
+ * <b>BatailleEspagnoleJava est la première classe invoquée par le programme. Elle va créer une instance de Partie.</b>
+ * <p>Cette classe permet de récupérer les paramètres souhaités par l'utilisateur puis de les envoyer à la classe Partie.</p>
+ * Une bataille espagnole se déroule de la manière suivante :
  * <ul>
- * <li>L'utiliseur de choisit la condition d'arrêt (de victoire) de la partie.</li>
+ * <li>L'utiliseur choisit la condition d'arrêt (de victoire) de la partie.</li>
  * <li>Il définit la valeur de cette condition (nombre de points à atteindre ou nombre de jeux). 
  * Cette étape est ignorée si l'utilisateur a choisi le mode par défaut.</li>
  * <li>Il saisit au clavier les noms des joueurs.</li>
  * </ul>
- * <p>Les paramètres saisis sont envoyés à la classe Partie. </p>
+ * <p>Les paramètres saisis sont envoyés à la classe Partie et la partie commence. </p>
  * 
  * @see Partie
  * 
@@ -49,7 +50,7 @@ public class BatailleEspagnoleJava {
         Partie p = new Partie(nb, mode);
         System.out.println("------------------------------------------------");
         System.out.println("CREATION DES JOUEURS :");
-        p.createJoueurs();
+        p.creerJoueurs();
         System.out.println("================================================\n");
         //lancer la partie
         p.lancer();
