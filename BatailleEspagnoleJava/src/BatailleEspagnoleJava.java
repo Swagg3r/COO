@@ -10,7 +10,7 @@ import java.util.Scanner;
 *      Rajouter un affichage des regles par default et/ou apres definitions des conditions dans tous les cas.
 *********************************************************/ 
 
-/*
+/**
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -50,7 +50,7 @@ public class BatailleEspagnoleJava {
         } else if(mode.toUpperCase().equals("J")) {
             System.out.println("-> Définissez la limite de nombre de jeux :");
         }
-        nb = lireEntier();
+        nb = readUInt();
         //création de la partie
         Partie p = new Partie(nb, mode);
         System.out.println("------------------------------------------------");
@@ -62,22 +62,22 @@ public class BatailleEspagnoleJava {
     }
     
     /**
-    *
-    * @author code fourni lors d'un TP de BD
-    */
-    public static int lireEntier() {
-        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-        int res = 0;
-        boolean ok = false;
+     * lecture au clavier d'un entier non-signé positif
+     * @return l'entier lu
+     */
+    public static int readUInt() {
+        Scanner sc = new Scanner(System.in);
+        int val = 0;
+        boolean valid = false;
         do {
             try {
-                res = Integer.parseInt(stdin.readLine());
-                if(res == 0) throw new Exception();
-                ok = true;
+                val = Integer.parseInt(sc.nextLine());
+                if(val <= 0) throw new Exception();
+                valid = true;
             } catch (Exception e) {
-                System.out.println("(saisir une valeur entière > 0)");
+                System.out.println("(saisir une valeur entière strictement positive)");
             }
-        } while (! ok);
-        return res;
+        } while (!valid);
+        return val;
     }
 }

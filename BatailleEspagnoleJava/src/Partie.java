@@ -153,29 +153,4 @@ public class Partie {
         }
         return paquetRangé;
     }
-    
-    public void print() {
-        System.out.println("-------[ Partie courante ]-------");
-        System.out.println("- " + participants.size() + " participants :");
-        for(Joueur j : participants) {
-            j.print();
-        }
-        System.out.println();
-        System.out.println("- Nombre de points à atteindre : "+nbMaxPoints);
-        System.out.println("- "+(vainqueur == null ? "Partie en cours" : "Vainqueur de la partie : "+vainqueur));
-        System.out.println("---------------------------------\n");
-    }
-    
-    /*public String toString() {
-        String str = "-------[ Partie courante ]-------\n\n";
-        
-        str += "-> " + participants.size() + " participants :\n\n";
-        for(int i = 0; i < participants.size(); i++) {
-            str += participants.get(i).toString();
-        }
-        str += "\nNombre de points à atteindre : "+maxPoints+"\n";
-        str += "\n"+(vainqueur == null ? "Partie en cours" : "Vainqueur de la partie : "+vainqueur)+"\n";
-        
-        return str;
-    }*/
 }

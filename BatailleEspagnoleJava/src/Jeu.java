@@ -3,14 +3,47 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jeu {
-
+    
+    /**
+     * L'atout du jeu. Cet attribut est modifiable.
+     * @see Jeu#getAtout()
+     */
     private famille atout;
+    
+    /**
+     * Le paquet de cartes. Cet attribut est initialisé à la construction
+     * de l'objet et n'est pas modifiable par la suite.
+     * @see Jeu#Jeu(ArrayList<Carte>, ArrayList<Joueur>)
+     * @see Jeu#getPaquet()
+     */
     private ArrayList<Carte> paquet;
-    private final ArrayList<Joueur> joueurs;
+    
+    /**
+     * Les participants au jeu. Cet attribut est initialisé à la construction
+     * de l'objet et n'est pas modifiable par la suite.
+     * @see Jeu#Jeu(ArrayList<Carte>, ArrayList<Joueur>)
+     * @see Jeu#getJoueurs()
+     */
+    private ArrayList<Joueur> joueurs;
+    
+    /**
+     * L'index du joueur qui distribue les cartes. Cet attribut est modifiable.
+     * @see Jeu#getDealer()
+     * @see Jeu#setDealer(int)
+     */
     private int dealer;
     
-    /* Constructeur */
-    
+    /**
+     * Constructeur de Jeu. <p>
+     * A la construction d'un objet Jeu, le paquet passé en paramètre est mélangé</p>
+     * @param paquet Le paquet de cartes.
+     * @param participants Les joueurs prenant part à la partie.
+     * @see Jeu#atout
+     * @see Jeu#paquet
+     * @see Jeu#joueurs
+     * @see Jeu#dealer
+     * @see Jeu#melangerPaquet
+     */
     public Jeu(ArrayList<Carte> paquet, ArrayList<Joueur> participants) {
         this.joueurs = participants;
         this.paquet = melangerPaquet(paquet);
@@ -45,95 +78,103 @@ public class Jeu {
         //premier joueur à jouer
         joueurs.get((dealer+1) % joueurs.size()).setMain(true);
     }
-    
-    /* get / set / add / remove */
-    
-    // atout
-    public famille getAtout() {
-        return this.atout;
-    }
-    public void setAtout(famille atout) {
-        this.atout = atout;
-    }
-    
-    /* Fonctions */
-    
+
+    /**
+     * Lance le jeu et le déroule jusqu'à son terme. <p>
+     * - les cartes sont distribuées.<p>
+     * - l'atout est défini.<p>
+     * - enchaînement des plis jusqu'à ce qu'il n'y ait plus de cartes.
+     */
     public void lancer() {
         distribuerCartes();
         définirAtout();
+        // cas particulier : arrêt prématuré du jeu
         if (this.atout == null) {
             System.out.println("fin prématurée du jeu");
-            //reset des cartes en main
+            // reset des cartes en main
             for(Joueur j : joueurs) {
                 j.setCartes(new ArrayList<Carte>());
             }
             return;
         }
+        // enchaînement des plis jusqu'à ce qu'il n'y ait plus de cartes
+        int nbPli = 52 / joueurs.size();
         int i = 1;
-        //chaque itération du while correspond à un pli
         while(resteDesCartes()) { 
             System.out.println("================================================");
-            System.out.println(" pli n° "+i+"/"+52/joueurs.size());
+            System.out.println(" pli n°" + i + "/" + nbPli);
             System.out.println("------------------------------------------------");
             tourDeJeu();
             i++;
         }
     }
     
+    /**
+     * Détermine si il reste encore des cartes à jouer. <p>
+     * Prend en compte les cartes dans le paquet ainsi que celles dans les mains des joueurs.<p>
+     * @return vrai ou faux selon si il reste des cartes ou non
+     */
     public boolean resteDesCartes() {
-        //si il reste des cartes dans le paquet
+        // si il reste des cartes dans le paquet
         if(!paquet.isEmpty()) return true;
-        //si les joueurs ont encore des cartes en main
-        //(les joueurs ont tjr le meme nombre de cartes en main)
+        // si les joueurs ont encore des cartes en main (au début d'un tour les joueurs 
+        // ont tous le même nombre de cartes en main donc on ne teste que pour le premier)
         if(joueurs.get(0).getCartes().isEmpty() == false) return true;
         return false;
     }
     
+    /**
+     * Effectue un tour de jeu (un pli). <p>
+     * - chaque joueur joue une carte (en commençant par le joueur ayant la main).<p>
+     * - identification de la carte gagnante (et donc du vainqueur du pli).<p>
+     * - la main passe au vainqueur du pli (il jouera en premier pour le pli suivant).<p>
+     * - comptabilisation des points gagnés sur ce pli.
+     */
     public void tourDeJeu() {
         
         int nbJoueurs = joueurs.size();
         ArrayList<Carte> pli = new ArrayList<>();
         int premier = premierJoueur();
         
-        //les joueurs jouent une carte chacun leur tour
+        // les joueurs jouent une carte chacun leur tour
         for(int i = 0; i < nbJoueurs; i++) {
             Joueur joueurCourant = joueurs.get((premier + i) % nbJoueurs);
             System.out.println("\n" + joueurCourant.getNomJoueur() + ", c'est à vous de jouer.");
-            //affichage des cartes jouées par les autres joueurs
+            // affichage des cartes jouées par les autres joueurs
             if(!pli.isEmpty()) {
                 System.out.println("Pli courant :");
                 for (Carte c : pli) {
                     System.out.println("- " + c.toString());
                 }
             }
-            //le joueur joue une carte (placée dans le pli courant)
+            // le joueur joue une carte (placée dans le pli courant)
             Carte carteJouee = joueurCourant.jouerCarte();
             pli.add(carteJouee);
-            //le joueur pioche une nouvelle carte (si il en reste)
+            // le joueur pioche une nouvelle carte (si il en reste)
             if(!paquet.isEmpty()) {
                 joueurCourant.piocher(paquet);
             }
         }
         
-        //déterminer vainqueur du pli.
+        // déterminer vainqueur du pli.
         int indexCarteGagnante = 0;
         for(int i = 1; i < pli.size(); i++) {
             if(pli.get(i).getFamille() == atout && pli.get(indexCarteGagnante).getFamille() != atout) {
-                //si premier atout joué : cette carte passe d'office gagnante potentielle
+                // si premier atout joué : cette carte devient gagnante potentielle
                 indexCarteGagnante = i;
             } else if(pli.get(i).getFamille() == pli.get(indexCarteGagnante).getFamille()) {
-                //si même couleur que la carte gagnante retenue pour le moment : tester si plus fort
+                // si même couleur que la carte gagnante retenue pour le moment : tester si plus fort
                 if(pli.get(indexCarteGagnante).compareTo(pli.get(i)) == -1) indexCarteGagnante = i;
             }
         }
         
         Joueur gagnantPli = joueurs.get((premier + indexCarteGagnante) % joueurs.size());
         
-        //passage de la main
+        // passage de la main
         joueurs.get(premier).setMain(false);
         gagnantPli.setMain(true);
         
-        //Comptage des points.
+        // comptage des points.
         int points = 0;
         for(Carte c : pli) {
             points += c.getType().getValue();
@@ -144,6 +185,10 @@ public class Jeu {
         System.out.println(gagnantPli.getNomJoueur() + " remporte ce pli (" + points + " points) et prend la main.\n");
     }
     
+    /**
+     * Renvoie le joueur qui joue en premier pour ce tour
+     * @return Premier joueur à jouer sur le tour en cours
+     */
     public int premierJoueur() {
         int i;
         for(i = 0; i < joueurs.size(); i++) {
@@ -153,14 +198,14 @@ public class Jeu {
     }
     
     /**
-    * Mélange le paquet généré par le constructeur de Partie
-    * @param paquetRangé Paquet de départ (trié)
-    * @return Paquet mélangé
-    */
+     * Mélange le paquet généré par le constructeur de Partie.
+     * @param paquetRangé le paquet de départ (trié)
+     * @return un paquet mélangé
+     */
     public ArrayList<Carte> melangerPaquet(ArrayList<Carte> paquetRangé) {
-        //copie du paquet rangé
+        // copie du paquet rangé
         ArrayList paquetBuffer = new ArrayList<Carte>(paquetRangé);
-        //création du paquet mélangé
+        // création du paquet mélangé
         ArrayList paquetFinal = new ArrayList<Carte>();
         int rand;
         
@@ -169,7 +214,7 @@ public class Jeu {
             paquetFinal.add(paquetBuffer.get(rand));
             paquetBuffer.remove(rand);
         }
-        //cas particulier : si il y a 3 joueurs, il faut retirer une carte du paquet
+        // cas particulier : si il y a 3 joueurs, il faut retirer une carte du paquet
         if(joueurs.size() == 3) {
             System.out.println("------------------------------------------------");
             System.out.println("/!\\ Cette partie comporte 3 joueurs.");
@@ -182,8 +227,11 @@ public class Jeu {
         return paquetFinal;
     }
 
+    /**
+     * Distribue 3 cartes à chaque joueur.
+     */
     public void distribuerCartes() {
-        //distribution des cartes 1 par 1
+        // distribution des cartes 1 par 1
         for(int i = 0; i < 3; i++) {
             for(Joueur j : joueurs){
                 j.addCarte(paquet.get(0));
@@ -192,46 +240,44 @@ public class Jeu {
         }
     }
     
-    public void print() {
-        System.out.println("---------[ Jeu courant ]---------");
-        System.out.println("- dealer : " + joueurs.get(dealer).getNomJoueur());
-        System.out.println("- atout : " + (atout == null ? "pas encore choisi" : atout));
-        System.out.println("- paquet (" + paquet.size() + ") cartes :");
-        for(Carte c : paquet) {
-            c.print();
-        }
-        System.out.println("---------------------------------\n");
-    }
-    
+    /**
+     * Définit l'atout pour ce jeu. <p>
+     * - la première carte du paquet est piochée, c'est l'atout potentiel.<p>
+     * - chaque joueur dit si cette carte lui convient comme atout ou non (s'arrête au premier "oui" prononcé).<p>
+     * - si tous les joueurs ont refusés la carte proposée, chaque joueur choisi une couleur d'atout
+     * ou passe (s'arrête au premier choix émis).<p>
+     * - si personne n'a choisi d'atout la partie est annulée.
+     * @see Jeu#atout
+     */
     public void définirAtout() {
         
         System.out.println("Choix de l'atout :");
         
         boolean atoutChoisi = false;
-        //pioche la première carte
+        // pioche la première carte
         Carte atoutPioché = paquet.get(0);
         paquet.remove(0);
         System.out.println("carte piochée : "+ atoutPioché.toString()+"\n");
 
-        //interroger les joueurs (en commençant par celui joueur suivant le dealer)
-        int nb_joueurs = joueurs.size();//pour alléger le code
-        for(int i = 1; i <= nb_joueurs; i++) {
-            Joueur joueurCourant = joueurs.get((dealer + i) % nb_joueurs);
+        // interroge les joueurs (en commençant par celui suivant le dealer)
+        int nbJ = joueurs.size();
+        for(int i = 1; i <= nbJ; i++) {
+            Joueur joueurCourant = joueurs.get((dealer + i) % nbJ);
             if(joueurCourant.accepteAtout(atoutPioché)) {
                 atout = atoutPioché.getFamille();
                 atoutChoisi = true;
                 break;
             }     
         }
-        //remettre la carte à la fin du paquet
+        // remet la carte à la fin du paquet
         paquet.add(atoutPioché);
         
-        //2e tour : on demande à chaque joueur la couleur qu'il veut pour l'atout
+        // 2e tour : on demande à chaque joueur la couleur qu'il veut pour l'atout
         if(!atoutChoisi) {
             System.out.println("\n2e tour : ");
-            for(int i = 1; i <= nb_joueurs; i++) {
+            for(int i = 1; i <= nbJ; i++) {
                 if (atoutChoisi == true) break;
-                Joueur joueurCourant = joueurs.get((dealer + i) % nb_joueurs);
+                Joueur joueurCourant = joueurs.get((dealer + i) % nbJ);
                 String choix = joueurCourant.choisirAtout();
                 if (choix.equals("C")) {
                     this.atout = famille.Coupe;
@@ -253,5 +299,52 @@ public class Jeu {
            System.out.println("l'atout choisi est " + this.atout);
         }
         System.out.println();
+    }
+    
+    /* getters / setters */
+    
+    /**
+     * Retourne l'atout du jeu.
+     * @return l'atout du jeu.
+     * @see Jeu#atout
+     */
+    public famille getAtout() {
+        return this.atout;
+    }
+    
+    /**
+    * Retourne le paquet de cartes du jeu.
+    * @return le paquet de cartes du jeu.
+    * @see Jeu#paquet
+    */
+    public ArrayList<Carte> getPaquet() {
+        return this.paquet;
+    }
+    
+    /**
+    * Retourne les participants du jeu
+    * @return les participants du jeu.
+    * @see Jeu#joueurs
+    */
+    public ArrayList<Joueur> getJoueurs() {
+        return this.joueurs;
+    }
+    
+    /**
+    * Retourne le dealer du jeu.
+    * @return le dealer du jeu.
+    * @see Jeu#dealer
+    */
+    public int getDealer() {
+        return this.dealer;
+    }
+    
+    /**
+    * Met à jour le dealer du jeu.
+    * @param dealer le nouveau dealer.
+    * @see Jeu#dealer
+    */
+    public void setDealer(int dealer) {
+        this.dealer = dealer;
     }
 }

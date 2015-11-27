@@ -97,6 +97,7 @@ public class Joueur {
         //choix de la carte à jouer
         afficherCartes();
         System.out.println("Quelle carte voulez-vous jouer ?");
+        
         Scanner sc = new Scanner(System.in);
         String str = "";
         boolean valid = false;
@@ -124,7 +125,7 @@ public class Joueur {
     }
     
     public boolean accepteAtout(Carte c) {
-        System.out.println(nomJoueur+", est-ce-que " + c.getFamille() + " vous convient comme atout ?");
+        System.out.println(nomJoueur + ", est-ce-que " + c.getFamille() + " vous convient comme atout ?");
         afficherCartes();
         
         Scanner sc = new Scanner(System.in);
