@@ -2,6 +2,24 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * <b>Jeu est la classe représentant un jeu au sein d'une partie. </b>
+ * <p>Un jeu est enchaînement de plis qui se termine lorsqu'il n'y a plus de cartes à jouer.
+ * Il est caractérisé par les informations suivantes :</p>
+ * <ul>
+ * <li>Un paquet de cartes.</li>
+ * <li>Un atout (l'une des 4 familles).</li>
+ * <li>Une liste de joueurs (les participants au jeu).</li>
+ * <li>Un index indiquant qui est le dealer (le joueur qui distribue les cartes au début du jeu).</li>
+ * </ul>
+ * 
+ * @see famille
+ * @see Carte
+ * @see Joueur
+ * 
+ * @author Aurélien MONNET-PAQUET, Antoine THEBAUD
+ */
+
 public class Jeu {
     
     /**
@@ -34,8 +52,8 @@ public class Jeu {
     private int dealer;
     
     /**
-     * Constructeur de Jeu. <p>
-     * A la construction d'un objet Jeu, le paquet passé en paramètre est mélangé</p>
+     * <p>Constructeur de Jeu. </p>
+     * A la construction d'un objet Jeu, le paquet passé en paramètre est mélangé et les joueurs sont initialisés.
      * @param paquet Le paquet de cartes.
      * @param participants Les joueurs prenant part à la partie.
      * @see Jeu#atout
@@ -80,10 +98,12 @@ public class Jeu {
     }
 
     /**
-     * Lance le jeu et le déroule jusqu'à son terme. <p>
-     * - les cartes sont distribuées.<p>
-     * - l'atout est défini.<p>
-     * - enchaînement des plis jusqu'à ce qu'il n'y ait plus de cartes.
+     * Lance le jeu et le déroule jusqu'à son terme.
+     * <ul>
+     * <li>les cartes sont distribuées.</li>
+     * <li>l'atout est défini.</li>
+     * <li>enchaînement des plis jusqu'à ce qu'il n'y ait plus de cartes.</li>
+     * </ul>
      */
     public void lancer() {
         distribuerCartes();
@@ -110,25 +130,13 @@ public class Jeu {
     }
     
     /**
-     * Détermine si il reste encore des cartes à jouer. <p>
-     * Prend en compte les cartes dans le paquet ainsi que celles dans les mains des joueurs.<p>
-     * @return vrai ou faux selon si il reste des cartes ou non
-     */
-    public boolean resteDesCartes() {
-        // si il reste des cartes dans le paquet
-        if(!paquet.isEmpty()) return true;
-        // si les joueurs ont encore des cartes en main (au début d'un tour les joueurs 
-        // ont tous le même nombre de cartes en main donc on ne teste que pour le premier)
-        if(joueurs.get(0).getCartes().isEmpty() == false) return true;
-        return false;
-    }
-    
-    /**
-     * Effectue un tour de jeu (un pli). <p>
-     * - chaque joueur joue une carte (en commençant par le joueur ayant la main).<p>
-     * - identification de la carte gagnante (et donc du vainqueur du pli).<p>
-     * - la main passe au vainqueur du pli (il jouera en premier pour le pli suivant).<p>
-     * - comptabilisation des points gagnés sur ce pli.
+     * Effectue un tour de jeu (un pli).
+     * <ul>
+     * <li>chaque joueur joue une carte (en commençant par le joueur ayant la main).</li>
+     * <li>identification de la carte gagnante (et donc du vainqueur du pli).</li>
+     * <li>la main passe au vainqueur du pli (il jouera en premier pour le pli suivant).</li>
+     * <li>comptabilisation des points gagnés sur ce pli.</li>
+     * </ul>
      */
     public void tourDeJeu() {
         
@@ -186,21 +194,9 @@ public class Jeu {
     }
     
     /**
-     * Renvoie le joueur qui joue en premier pour ce tour
-     * @return Premier joueur à jouer sur le tour en cours
-     */
-    public int premierJoueur() {
-        int i;
-        for(i = 0; i < joueurs.size(); i++) {
-            if(joueurs.get(i).getMain() == true) break; 
-        }
-        return i;
-    }
-    
-    /**
      * Mélange le paquet généré par le constructeur de Partie.
-     * @param paquetRangé le paquet de départ (trié)
-     * @return un paquet mélangé
+     * @param paquetRangé le paquet de départ (trié).
+     * @return Un paquet mélangé.
      */
     public ArrayList<Carte> melangerPaquet(ArrayList<Carte> paquetRangé) {
         // copie du paquet rangé
@@ -241,12 +237,15 @@ public class Jeu {
     }
     
     /**
-     * Définit l'atout pour ce jeu. <p>
-     * - la première carte du paquet est piochée, c'est l'atout potentiel.<p>
-     * - chaque joueur dit si cette carte lui convient comme atout ou non (s'arrête au premier "oui" prononcé).<p>
-     * - si tous les joueurs ont refusés la carte proposée, chaque joueur choisi une couleur d'atout
-     * ou passe (s'arrête au premier choix émis).<p>
-     * - si personne n'a choisi d'atout la partie est annulée.
+     * Définit l'atout pour ce jeu.
+     * <ul>
+     * <li>la première carte du paquet est piochée, c'est l'atout potentiel.</li>
+     * <li>chaque joueur dit si cette carte lui convient comme atout ou non (s'arrête
+     * au premier "oui" prononcé).</li>
+     * <li>si tous les joueurs ont refusés la carte proposée, chaque joueur choisi
+     * une couleur d'atout ou passe (s'arrête au premier choix émis).</li>
+     * <li>si personne n'a choisi d'atout la partie est annulée.</li>
+     * </ul>
      * @see Jeu#atout
      */
     public void définirAtout() {
@@ -301,6 +300,32 @@ public class Jeu {
         System.out.println();
     }
     
+    /**
+     * <p>Détermine si il reste encore des cartes à jouer. </p>
+     * Prend en compte les cartes dans le paquet ainsi que celles dans les mains des joueurs.
+     * @return vrai ou faux selon si il reste des cartes ou non.
+     */
+    public boolean resteDesCartes() {
+        // si il reste des cartes dans le paquet
+        if(!paquet.isEmpty()) return true;
+        // si les joueurs ont encore des cartes en main (au début d'un tour les joueurs 
+        // ont tous le même nombre de cartes en main donc on ne teste que pour le premier)
+        if(joueurs.get(0).getCartes().isEmpty() == false) return true;
+        return false;
+    }
+    
+    /**
+     * Renvoie le joueur qui joue en premier pour ce tour
+     * @return Premier joueur à jouer sur le tour en cours.
+     */
+    public int premierJoueur() {
+        int i;
+        for(i = 0; i < joueurs.size(); i++) {
+            if(joueurs.get(i).getMain() == true) break; 
+        }
+        return i;
+    }
+    
     /* getters / setters */
     
     /**
@@ -313,37 +338,46 @@ public class Jeu {
     }
     
     /**
-    * Retourne le paquet de cartes du jeu.
-    * @return le paquet de cartes du jeu.
-    * @see Jeu#paquet
-    */
+     * Met à jour l'atout du jeu.
+     * @param atout le nouvel atout.
+     * @see Jeu#atout
+     */
+    public void setAtout(famille atout) {
+        this.atout = atout;
+    }
+    
+    /**
+     * Retourne le paquet de cartes du jeu.
+     * @return le paquet de cartes du jeu.
+     * @see Jeu#paquet
+     */
     public ArrayList<Carte> getPaquet() {
         return this.paquet;
     }
     
     /**
-    * Retourne les participants du jeu
-    * @return les participants du jeu.
-    * @see Jeu#joueurs
-    */
+     * Retourne les participants du jeu
+     * @return les participants du jeu.
+     * @see Jeu#joueurs
+     */
     public ArrayList<Joueur> getJoueurs() {
         return this.joueurs;
     }
     
     /**
-    * Retourne le dealer du jeu.
-    * @return le dealer du jeu.
-    * @see Jeu#dealer
-    */
+     * Retourne le dealer du jeu.
+     * @return le dealer du jeu.
+     * @see Jeu#dealer
+     */
     public int getDealer() {
         return this.dealer;
     }
     
     /**
-    * Met à jour le dealer du jeu.
-    * @param dealer le nouveau dealer.
-    * @see Jeu#dealer
-    */
+     * Met à jour le dealer du jeu.
+     * @param dealer le nouveau dealer.
+     * @see Jeu#dealer
+     */
     public void setDealer(int dealer) {
         this.dealer = dealer;
     }
