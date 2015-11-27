@@ -152,6 +152,11 @@ public class Jeu {
         return i;
     }
     
+    /**
+    * Mélange le paquet généré par le constructeur de Partie
+    * @param paquetRangé Paquet de départ (trié)
+    * @return Paquet mélangé
+    */
     public ArrayList<Carte> melangerPaquet(ArrayList<Carte> paquetRangé) {
         //copie du paquet rangé
         ArrayList paquetBuffer = new ArrayList<Carte>(paquetRangé);
