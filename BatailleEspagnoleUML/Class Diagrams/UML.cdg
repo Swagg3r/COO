@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="UML">
+  <ClassDiagramComponents>
+    <Class name="Carte" package="" visibility="public" xPosition="83.0" yPosition="83.0">
+      <Fields>
+        <Field name="type" type="typeCarte" visibility="private"/>
+        <Field name="nomFamille" type="famille" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getType" returnType="typeCarte" visibility="public"/>
+        <Method name="setType" returnType="void" visibility="public">
+          <Argument type="typeCarte" name="type"/>
+        </Method>
+        <Method name="getNomFamille" returnType="famille" visibility="public"/>
+        <Method name="setNomFamille" returnType="void" visibility="public">
+          <Argument type="famille" name="nomFamille"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Enum name="typeCarte" package="" visibility="public" xPosition="900.0" yPosition="92.0">
+      <Literals>
+        <Literal name="1"/>
+        <Literal name="2"/>
+        <Literal name="3"/>
+        <Literal name="4"/>
+        <Literal name="5"/>
+        <Literal name="6"/>
+        <Literal name="7"/>
+        <Literal name="8"/>
+        <Literal name="9"/>
+        <Literal name="10"/>
+        <Literal name="Valet"/>
+        <Literal name="Dame"/>
+        <Literal name="Roi"/>
+      </Literals>
+    </Enum>
+    <Enum name="famille" package="" visibility="public" xPosition="900.0" yPosition="448.0">
+      <Literals>
+        <Literal name="Bâton"/>
+        <Literal name="Coupe"/>
+        <Literal name="Or"/>
+        <Literal name="Epée"/>
+      </Literals>
+    </Enum>
+    <Class name="Partie" package="" visibility="public" xPosition="494.0" yPosition="429.0">
+      <Fields>
+        <Field name="maxPoints" type="int" visibility="private"/>
+        <Field name="vainqueur" type="Joueur" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getMaxPoints" returnType="int" visibility="public"/>
+        <Method name="setMaxPoints" returnType="void" visibility="public">
+          <Argument type="int" name="maxPoints"/>
+        </Method>
+        <Method name="getVainqueur" returnType="Joueur" visibility="public"/>
+        <Method name="setVainqueur" returnType="void" visibility="public">
+          <Argument type="Joueur" name="vainqueur"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Joueur" package="" visibility="public" xPosition="539.0" yPosition="92.0">
+      <Fields>
+        <Field name="nomJoueur" type="String" visibility="private"/>
+        <Field name="nbPoints" type="int" visibility="private"/>
+        <Field name="aLaMain" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getNbPoints" returnType="int" visibility="public"/>
+        <Method name="setNbPoints" returnType="void" visibility="public">
+          <Argument type="int" name="nbPoints"/>
+        </Method>
+        <Method name="getMain" returnType="boolean" visibility="public"/>
+        <Method name="setMain" returnType="void" visibility="public">
+          <Argument type="boolean" name="aLaMain"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Jeu" package="" visibility="public" xPosition="100.0" yPosition="419.0">
+      <Fields>
+        <Field name="atout" type="famille" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getAtout" returnType="famille" visibility="public"/>
+        <Method name="setAtout" returnType="void" visibility="public">
+          <Argument type="famille" name="atout"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="possède" source="Joueur" target="Carte" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <HasRelation name="contient" source="Partie" target="Jeu" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <HasRelation name="participe" source="Joueur" target="Partie" type="Default" sourceCardinality="0..1" targetCardinality="0..*" collectionType="ArrayList"/>
+    <HasRelation name="participants" source="Partie" target="Joueur" type="Default" sourceCardinality="0..1" targetCardinality="0..*" collectionType="ArrayList"/>
+    <HasRelation name="vainqueur" source="Partie" target="Joueur" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
