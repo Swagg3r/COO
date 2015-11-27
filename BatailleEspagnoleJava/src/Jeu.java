@@ -98,7 +98,14 @@ public class Jeu {
         //les joueurs jouent une carte chacun leur tour
         for(int i = 0; i < nbJoueurs; i++) {
             Joueur joueurCourant = joueurs.get((premier + i) % nbJoueurs);
-            System.out.println(joueurCourant.getNomJoueur() + ", c'est à vous de jouer.");
+            System.out.println("\n" + joueurCourant.getNomJoueur() + ", c'est à vous de jouer.");
+            //affichage des cartes jouées par les autres joueurs
+            if(!pli.isEmpty()) {
+                System.out.println("Pli courant :");
+                for (Carte c : pli) {
+                    System.out.println("- " + c.toString());
+                }
+            }
             //le joueur joue une carte (placée dans le pli courant)
             Carte carteJouee = joueurCourant.jouerCarte();
             pli.add(carteJouee);

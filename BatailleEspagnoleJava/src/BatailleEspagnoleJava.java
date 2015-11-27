@@ -3,6 +3,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+/************************[ TODO ]************************   
+* - javadoc.
+* - mettre à jour UML
+* - Quand on rentre comme parametre de partie "0" et "0", que se passe t il ?? 
+*      Rajouter un affichage des regles par default et/ou apres definitions des conditions dans tous les cas.
+*********************************************************/ 
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,26 +19,16 @@ import java.util.Scanner;
 
 /**
  *
- * @author thebauda
+ * @author Aurélien MONNET-PAQUET, Antoine THEBAUD
  */
 public class BatailleEspagnoleJava {
-
+    
     /**
-     * @param args the command line arguments
-     */
-    
-    /************************[ TODO ]************************   
-    * - javadoc.
-    * - mettre à jour UML
-    * - mettre un Stack à la place d'une Arraylist pour les cartes ?
-    * - revoir méthode de comptage des points ?
-    * - expliquer premier + rangvainqueur % joueurs.size()
-    * - le joueur qui a le plus de points à gagner
-    * - Une fois les cartes jouer par un joueurs : afficher les cartes qui sont sur la table
-    * - Quand on rentre comme parametre de partie "0" et "0", que se passe t il ?? 
-    *      Rajouter un affichage des regles par default et/ou apres definitions des conditions dans tous les cas.
-    *********************************************************/ 
-    
+    * blablabla
+    * 
+    * @see Zero#Zero(int, String)
+    * @see Zero#getId()
+    */
     private static int nb_jeux = 3;
     
     public static void main(String[] args) {
@@ -40,7 +37,7 @@ public class BatailleEspagnoleJava {
         System.out.println("CONDITION(S) DE VICTOIRE :");
         System.out.println("-> Condition de victoire : \n- nombre de points à atteindre ? (P)"
                                                     + "\n- nombre de jeux maximum ? (J)"
-                                                    + "\n- valeur par défaut : victoire 200 points ? (D)");
+                                                    + "\n- valeur par défaut : victoire en 200 points ? (D)");
         Scanner sc = new Scanner(System.in);
         String mode = sc.nextLine();
         while(!mode.toUpperCase().equals("P") && !mode.toUpperCase().equals("J") && !mode.toUpperCase().equals("D")) {
@@ -64,7 +61,10 @@ public class BatailleEspagnoleJava {
         p.lancer();
     }
     
-    //author = prof de bd
+    /**
+    *
+    * @author code fourni lors d'un TP de BD
+    */
     public static int lireEntier() {
         BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
         int res = 0;
