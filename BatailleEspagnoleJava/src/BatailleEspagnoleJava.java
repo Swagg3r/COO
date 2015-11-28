@@ -42,10 +42,11 @@ public class BatailleEspagnoleJava {
         int nb = 0;
         if(mode.toUpperCase().equals("P")) {
             System.out.println("-> Définissez le nombre maximum de points à atteindre :");
+            nb = readUInt();
         } else if(mode.toUpperCase().equals("J")) {
             System.out.println("-> Définissez la limite de nombre de jeux :");
+            nb = readUInt();
         }
-        nb = readUInt();
         //création de la partie
         Partie p = new Partie(nb, mode);
         System.out.println("------------------------------------------------");
