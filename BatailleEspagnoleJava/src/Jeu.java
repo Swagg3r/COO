@@ -214,7 +214,7 @@ public class Jeu {
         if(joueurs.size() == 3) {
             System.out.println("------------------------------------------------");
             System.out.println("/!\\ Cette partie comporte 3 joueurs.");
-            System.out.println("Une carte a par conséquent été retirée du paquet :");
+            System.out.println("Une carte a été retirée du paquet :");
             System.out.println("(" + paquetFinal.get(0).toString() + ")");
             System.out.println("------------------------------------------------");
             paquetFinal.remove(0);

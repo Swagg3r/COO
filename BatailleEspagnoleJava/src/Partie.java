@@ -163,14 +163,12 @@ public class Partie {
         int nbJeu = 0;
         while(!victoire(nbJeu)) {
             System.out.println("===================[ Jeu n°"+(nbJeu+1)+" ]==================\n");
-            if(nbJeu != 0) {
-                System.out.println("Score actuel des joueurs :");
-                for(Joueur j : participants) {
-                    System.out.println(j.getNomJoueur()+ " : " + j.getNbPoints());
-                }
-                System.out.println();
-            }
             nouveauJeu();
+            System.out.println("Score actuel des joueurs :");
+            for(Joueur j : participants) {
+                System.out.println(j.getNomJoueur()+ " : " + j.getNbPoints());
+            }
+            System.out.println();
             System.out.println("================================================\n");
             nbJeu++;
         }
