@@ -12,12 +12,65 @@
       </Constructors>
       <Methods>
         <Method name="getType" returnType="typeCarte" visibility="public"/>
-        <Method name="setType" returnType="void" visibility="public">
+        <Method name="setType" returnType="typeCarte" visibility="public">
           <Argument type="typeCarte" name="type"/>
         </Method>
         <Method name="getNomFamille" returnType="famille" visibility="public"/>
-        <Method name="setNomFamille" returnType="void" visibility="public">
+        <Method name="setNomFamille" returnType="famille" visibility="public">
           <Argument type="famille" name="nomFamille"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Partie" package="" visibility="public" xPosition="424.0" yPosition="516.0">
+      <Fields>
+        <Field name="nbMaxPoints" type="int" visibility="private"/>
+        <Field name="nbJeuxMax" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getMaxPoints" returnType="int" visibility="public"/>
+        <Method name="setMaxPoints" returnType="int" visibility="public">
+          <Argument type="int" name="maxPoints"/>
+        </Method>
+        <Method name="getVainqueur" returnType="Joueur" visibility="public"/>
+        <Method name="setVainqueur" returnType="Joueur" visibility="public">
+          <Argument type="Joueur" name="vainqueur"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Joueur" package="" visibility="public" xPosition="539.0" yPosition="92.0">
+      <Fields>
+        <Field name="nomJoueur" type="String" visibility="private"/>
+        <Field name="nbPoints" type="int" visibility="private"/>
+        <Field name="aLaMain" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getNbPoints" returnType="int" visibility="public"/>
+        <Method name="setNbPoints" returnType="int" visibility="public">
+          <Argument type="int" name="nbPoints"/>
+        </Method>
+        <Method name="getMain" returnType="boolean" visibility="public"/>
+        <Method name="setMain" returnType="boolean" visibility="public">
+          <Argument type="boolean" name="aLaMain"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Jeu" package="" visibility="public" xPosition="108.0" yPosition="448.0">
+      <Fields>
+        <Field name="atout" type="famille" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getAtout" returnType="famille" visibility="public"/>
+        <Method name="setAtout" returnType="famille" visibility="public">
+          <Argument type="famille" name="atout"/>
         </Method>
       </Methods>
     </Class>
@@ -46,65 +99,14 @@
         <Literal name="Epée"/>
       </Literals>
     </Enum>
-    <Class name="Partie" package="" visibility="public" xPosition="494.0" yPosition="429.0">
-      <Fields>
-        <Field name="maxPoints" type="int" visibility="private"/>
-        <Field name="vainqueur" type="Joueur" visibility="private"/>
-      </Fields>
-      <Constructors>
-        <Constructor visibility="public"/>
-      </Constructors>
-      <Methods>
-        <Method name="getMaxPoints" returnType="int" visibility="public"/>
-        <Method name="setMaxPoints" returnType="void" visibility="public">
-          <Argument type="int" name="maxPoints"/>
-        </Method>
-        <Method name="getVainqueur" returnType="Joueur" visibility="public"/>
-        <Method name="setVainqueur" returnType="void" visibility="public">
-          <Argument type="Joueur" name="vainqueur"/>
-        </Method>
-      </Methods>
-    </Class>
-    <Class name="Joueur" package="" visibility="public" xPosition="539.0" yPosition="92.0">
-      <Fields>
-        <Field name="nomJoueur" type="String" visibility="private"/>
-        <Field name="nbPoints" type="int" visibility="private"/>
-        <Field name="aLaMain" type="boolean" visibility="private"/>
-      </Fields>
-      <Constructors>
-        <Constructor visibility="public"/>
-      </Constructors>
-      <Methods>
-        <Method name="getNbPoints" returnType="int" visibility="public"/>
-        <Method name="setNbPoints" returnType="void" visibility="public">
-          <Argument type="int" name="nbPoints"/>
-        </Method>
-        <Method name="getMain" returnType="boolean" visibility="public"/>
-        <Method name="setMain" returnType="void" visibility="public">
-          <Argument type="boolean" name="aLaMain"/>
-        </Method>
-      </Methods>
-    </Class>
-    <Class name="Jeu" package="" visibility="public" xPosition="100.0" yPosition="419.0">
-      <Fields>
-        <Field name="atout" type="famille" visibility="private"/>
-      </Fields>
-      <Constructors>
-        <Constructor visibility="public"/>
-      </Constructors>
-      <Methods>
-        <Method name="getAtout" returnType="famille" visibility="public"/>
-        <Method name="setAtout" returnType="void" visibility="public">
-          <Argument type="famille" name="atout"/>
-        </Method>
-      </Methods>
-    </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="possède" source="Joueur" target="Carte" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
-    <HasRelation name="contient" source="Partie" target="Jeu" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
-    <HasRelation name="participe" source="Joueur" target="Partie" type="Default" sourceCardinality="0..1" targetCardinality="0..*" collectionType="ArrayList"/>
+    <HasRelation name="joueurs" source="Jeu" target="Joueur" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <HasRelation name="a en main" source="Joueur" target="Carte" type="Default" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <HasRelation name="paquet de cartes" source="Partie" target="Carte" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="participants" source="Partie" target="Joueur" type="Default" sourceCardinality="0..1" targetCardinality="0..*" collectionType="ArrayList"/>
+    <HasRelation name="contient" source="Partie" target="Jeu" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
     <HasRelation name="vainqueur" source="Partie" target="Joueur" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="tas de cartes" source="Jeu" target="Carte" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
